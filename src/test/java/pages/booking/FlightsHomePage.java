@@ -1,5 +1,6 @@
 package pages.booking;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,21 +26,72 @@ public class FlightsHomePage extends BasePage {
     @FindBy(xpath = "//*[@class='css-17g2hv0-radio-group']/li[3]")
     WebElement multipleDestinationRadio;
 
+    @FindBy(css = "[data-testid='add_flight']")
+    WebElement addFlight;
+
+    @FindBy(css = ".Calendar-module__control--next___N9ipu")
+    WebElement calendarNext;
+
+    @FindBy(css = "[data-testid='searchbox_submit']")
+    WebElement searchButton;
+
+    String odaklePutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[1]";
+    String gdePutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[3]";
+    String kadaPutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[4]";
+
     public void clickMultipleDestinationOption() {
         clickElement(multipleDestinationRadio);
     }
 
-    public void enterDestinations(Map<String, String> data) {
-        //
+    public void enterDestinations(Map<String, String> data) throws InterruptedException {
+        int destinations = Integer.parseInt(data.get("numDestinations"));
 
+        for (int i = 1; i <= destinations; i++) {
+            if(i>2){
+                clickElement(addFlight);
+            }
+            setOrigin(data.get("origin"+i),String.valueOf(i));
+            setDestination(data.get("destination"+i),String.valueOf(i));
+            setFlightDate(data.get("month"+i), data.get("day"+i),String.valueOf(i));
+            Thread.sleep(500);
+        }
 
+    }
 
+    private void setFlightDate(String month1, String day1, String i) {
+        driver.findElement(By.xpath(kadaPutujete.replace("$", i))).click();
+        setDate(month1, day1);
+    }
 
+    public void setDate(String month, String day) {
+        String xpath = "//h3[contains(text(),'" + month + "')]/..//span[text()='" + day + "']";
 
+        if (driver.findElements(By.xpath(xpath)).size() > 0) {
+            clickElement(driver.findElements(By.xpath(xpath)).get(0));
+        } else {
+            while (driver.findElements(By.xpath(xpath)).size() == 0) {
+                clickElement(calendarNext);
+                if (driver.findElements(By.xpath(xpath)).size() > 0) {
+                    clickElement(driver.findElements(By.xpath(xpath)).get(0));
+                }
+            }
+        }
+    }
 
+    public void search() {
+        clickElement(searchButton);
+    }
 
+    public void setOrigin(String origin, String i) {
+        driver.findElement(By.xpath(odaklePutujete.replace("$", i))).click();
+        typeText(driver.findElement(By.cssSelector("[data-testid='searchbox_origin_input_" + (Integer.parseInt(i) - 1) + "']")), origin, "");
+        clickElement(driver.findElement(By.xpath("//div[@class='css-1tli02a-autocompleteResults']//li[1]")));
+    }
 
-
+    public void setDestination(String destination, String i) {
+        driver.findElement(By.xpath(gdePutujete.replace("$", i))).click();
+        typeText(driver.findElement(By.cssSelector("[data-testid='searchbox_destination_input_" + (Integer.parseInt(i) - 1) + "']")), destination, "");
+        clickElement(driver.findElement(By.xpath("//div[@class='css-1tli02a-autocompleteResults']//li[1]")));
     }
 
 }

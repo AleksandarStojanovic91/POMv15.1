@@ -1,8 +1,16 @@
 Feature: Flights
 
   @Flights
-  Scenario: Book a multiple destination flight
+  Scenario Outline: Book a multiple destination flight
 
-    Given I am on the booking flights page
-    And I select multiple destination option
-    And I enter destinations
+    * I read test data from "Booking" "Flights" by id "<TC_ID>"
+    * I am on the booking flights page
+    * I select multiple destination option
+    * I enter destinations
+    * I click search flights button
+    #    * I verify results
+
+    Examples:
+      | TC_ID  |
+      | FL_001 |
+      | FL_002 |

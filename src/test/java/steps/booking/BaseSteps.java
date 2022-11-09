@@ -104,8 +104,12 @@ public class BaseSteps extends BaseTest {
     }
 
     @And("I enter destinations")
-    public void iEnterDestinations() {
+    public void iEnterDestinations() throws InterruptedException {
         new FlightsHomePage(driver).enterDestinations(data);
     }
 
+    @And("I click search flights button")
+    public void iClickSearchFlightsButton() {
+        new FlightsHomePage(driver).search();
+    }
 }

@@ -7,7 +7,7 @@
     <parameter name="env" value="QA"/>
     <parameter name="wait" value="10"/>
     <parameter name="screenshot" value="Yes"/>
-    <parameter name="quit" value="No"/>
+    <parameter name="quit" value="Yes"/>
 
     <test enabled="false" name="Booking Stays Tests">
         <classes>
