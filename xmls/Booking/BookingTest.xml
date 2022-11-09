@@ -7,10 +7,16 @@
     <parameter name="env" value="QA"/>
     <parameter name="wait" value="10"/>
     <parameter name="screenshot" value="Yes"/>
+    <parameter name="quit" value="No"/>
 
-    <test name="Booking Test">
+    <test enabled="false" name="Booking Stays Tests">
         <classes>
-            <class name="runners.booking.Runner"/>
+            <class name="runners.booking.StaysTestRunner"/>
+        </classes>
+    </test>
+    <test name="Booking Flights Tests">
+        <classes>
+            <class name="runners.booking.FlightsTestRunner"/>
         </classes>
     </test>
 

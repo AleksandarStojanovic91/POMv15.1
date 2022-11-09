@@ -8,11 +8,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+import pages.booking.components.FooterComponent;
+import pages.booking.components.HeaderComponent;
 
 public class StaysHomePage extends BasePage {
 
+    public HeaderComponent headerComponent;
+    public FooterComponent footerComponent;
+
     public StaysHomePage(WebDriver driver) {
         super(driver);
+        headerComponent = new HeaderComponent(driver);
+        footerComponent = new FooterComponent(driver);
         PageFactory.initElements(driver, this);
     }
 
