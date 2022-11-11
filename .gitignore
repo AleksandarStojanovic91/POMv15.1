@@ -2,3 +2,4 @@
 *.iml
 /results
 /target
+/allure-report
