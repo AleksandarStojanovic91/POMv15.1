@@ -33,7 +33,7 @@ public class BaseSteps extends BaseTest {
     @After
     public void tearDown() {
         if (quit.equalsIgnoreCase("Yes")) {
-//            quit();
+            quit();
         }
     }
 

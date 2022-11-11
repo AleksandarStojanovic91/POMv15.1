@@ -44,7 +44,7 @@ public class FlightsHomePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[4]//button[1]//input")
     WebElement openCalendarReturnFlight;
 
-    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[4]//button[2]")
+    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[4]//button[2]//input")
     WebElement returnReturnFlightInfo;
 
     String odaklePutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[1]";
