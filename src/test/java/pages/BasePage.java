@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class BasePage {
 
@@ -110,6 +111,14 @@ public class BasePage {
 
     public void scrollToElement(WebElement element) {
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true)",element);
+    }
+
+    public void compareData(WebElement element, String expectedData) {
+        String actualData = element.getAttribute("value");
+        System.out.println("Vrednost value atribiute je: " + actualData);
+        Assert.assertTrue(element.isDisplayed(), "Verification test is not displayed");
+        Assert.assertEquals(actualData, expectedData);
+        System.out.println("Actual displayed data is: " + actualData);
     }
 
 }

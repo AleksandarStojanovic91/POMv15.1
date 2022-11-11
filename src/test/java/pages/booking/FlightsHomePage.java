@@ -35,9 +35,30 @@ public class FlightsHomePage extends BasePage {
     @FindBy(css = "[data-testid='searchbox_submit']")
     WebElement searchButton;
 
+    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[1]")
+    WebElement originReturnFlight;
+
+    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[3]")
+    WebElement destinationReturnFlight;
+
+    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[4]//button[1]//input")
+    WebElement openCalendarReturnFlight;
+
+    @FindBy(xpath = "//div[contains(@class,'css-171z175')]/div[4]//button[2]")
+    WebElement returnReturnFlightInfo;
+
     String odaklePutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[1]";
     String gdePutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[3]";
     String kadaPutujete = "//div[contains(@class,'Stack-module__root--direction-column___2y5oZ')]/div[$]/div[4]";
+
+    public void verifyReturnFlightResults(String expectedText3, String expectedText4) throws InterruptedException {
+        compareData(openCalendarReturnFlight, expectedText3);
+        Thread.sleep(1000);
+        compareData(returnReturnFlightInfo, expectedText4);
+    }
+    public void openCalendarReturnFlight(){
+        clickElement(openCalendarReturnFlight);
+    }
 
     public void clickMultipleDestinationOption() {
         clickElement(multipleDestinationRadio);
@@ -55,8 +76,19 @@ public class FlightsHomePage extends BasePage {
             setFlightDate(data.get("month"+i), data.get("day"+i),String.valueOf(i));
             Thread.sleep(500);
         }
-
     }
+
+    public void enterDataReturnFlight (String origin, String destination){
+        clickElement(originReturnFlight);
+        clickElement(driver.findElement(By.cssSelector("div.css-hboir5")));
+        typeText(driver.findElement(By.cssSelector("[data-testid='searchbox_origin_input_0']")), origin, "");
+        clickElement(driver.findElement(By.xpath("//div[@class='css-1tli02a-autocompleteResults']//li[1]")));
+
+        typeText(driver.findElement(By.cssSelector("[data-testid='searchbox_destination_input_0']")), destination, "");
+        clickElement(driver.findElement(By.xpath("//div[@class='css-1tli02a-autocompleteResults']//li[1]")));
+    }
+
+
 
     private void setFlightDate(String month1, String day1, String i) {
         driver.findElement(By.xpath(kadaPutujete.replace("$", i))).click();
@@ -93,5 +125,6 @@ public class FlightsHomePage extends BasePage {
         typeText(driver.findElement(By.cssSelector("[data-testid='searchbox_destination_input_" + (Integer.parseInt(i) - 1) + "']")), destination, "");
         clickElement(driver.findElement(By.xpath("//div[@class='css-1tli02a-autocompleteResults']//li[1]")));
     }
+
 
 }

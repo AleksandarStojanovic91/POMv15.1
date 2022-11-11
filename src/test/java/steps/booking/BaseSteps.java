@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Reporter;
 import pages.booking.FlightsHomePage;
@@ -32,7 +33,7 @@ public class BaseSteps extends BaseTest {
     @After
     public void tearDown() {
         if (quit.equalsIgnoreCase("Yes")) {
-            quit();
+//            quit();
         }
     }
 
@@ -111,5 +112,24 @@ public class BaseSteps extends BaseTest {
     @And("I click search flights button")
     public void iClickSearchFlightsButton() {
         new FlightsHomePage(driver).search();
+    }
+
+    @And("Ienter destination return flight")
+    public void ienterDestinationReturnFlight() {
+        new FlightsHomePage(driver).enterDataReturnFlight(data.get("origin1"),data.get("destination1"));
+    }
+
+    @And("Check date for return flight")
+    public void checkDateForReturnFlight() {
+        FlightsHomePage hp = new FlightsHomePage(driver);
+        hp.openCalendarReturnFlight();
+        hp.setDate(data.get("month3"),data.get("day3"));
+        hp.setDate(data.get("month4"),data.get("day4"));
+    }
+
+    @Then("I verify results")
+    public void iVerifyResults() throws InterruptedException {
+        FlightsHomePage hp = new FlightsHomePage(driver);
+        hp.verifyReturnFlightResults(data.get("expectedText3"),data.get("expectedText4"));
     }
 }
