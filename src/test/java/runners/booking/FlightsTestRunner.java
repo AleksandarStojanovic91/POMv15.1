@@ -9,13 +9,13 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         features = "src/test/java/features/booking",
         glue = "steps/booking",
-        tags = "@Run",
+        tags = "@Flights",
         plugin = {"io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"}
 )
-public class Runner extends AbstractTestNGCucumberTests {
+public class FlightsTestRunner extends AbstractTestNGCucumberTests {
 
     @Override
-    @DataProvider(parallel = true)
+    @DataProvider(parallel = false)
     public Object[][] scenarios(){
         return super.scenarios();
     }
